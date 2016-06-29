@@ -18,7 +18,7 @@ RUN apt-get install -y --fix-missing wget curl nano zip unzip zlib1g-dev uuid-de
 
 
 WORKDIR /tmp
-RUN git clone https://github.com/firehol/netdata.git --depth=1
+ADD ./netdata /tmp/netdata
 WORKDIR /tmp/netdata
 RUN ./netdata-installer.sh
 
@@ -34,5 +34,4 @@ RUN echo "alias l='ls -la'" >> /root/.bashrc
 
 WORKDIR /
 
-#CMD ["/usr/sbin/netdata","-D", "-s /host"]
-CMD /usr/sbin/netdata -D -s /host
+CMD ["/usr/sbin/netdata", "-s", "/host", "-D"]
