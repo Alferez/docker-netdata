@@ -22,6 +22,15 @@ ADD ./netdata /tmp/netdata
 WORKDIR /tmp/netdata
 RUN ./netdata-installer.sh
 
+
+WORKDIR /tmp
+RUN wget https://get.docker.com/builds/Linux/x86_64/docker-latest.tgz
+RUN tar zxvf docker-latest.tgz
+RUN mv docker/docker /usr/sbin/
+RUN groupadd docker
+RUN gpasswd -a netdata docker
+RUN usermod -aG docker netdata
+
 EXPOSE 19999
 
 ### Limpiamos
